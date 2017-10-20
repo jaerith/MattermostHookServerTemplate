@@ -45,7 +45,40 @@ namespace MattermostHookServerTemplate.Controllers
                                 "| iOS Client | 78          | :warning: [3(see details)](http://linktologs)  |\n";
 
             }
-            
+            else if (!String.IsNullOrEmpty(Command) && Command.Contains("ean"))
+            {
+                string TargetEan = "";
+                string UserName  = "";
+
+                if (formData != null)
+                {
+                    TargetEan = formData.Get("text");
+                    UserName  = formData.Get("user_name");
+                }
+
+                // Default Value
+                response.text = "| Ean              | Price      | Title \n" +
+                                "|:-----------------|:-----------|:----------------\n" +
+                                "| N/A              | N/A        | No Ean provided \n";
+
+                if (!String.IsNullOrEmpty(TargetEan))
+                {
+                    string Title = "";
+                    string Price = "";
+
+                    // Title = getTitle(TargetEan);
+                    // Price = getPrice(TargetEan);
+
+                    response.text = "| Ean              | Price      | Title \n" +
+                                    "|:-----------------|:-----------|:-----------n" +
+                                    "| " + TargetEan.PadLeft(13, '0') + "   | "
+                                         + Price + "     | "
+                                         + Title + "\n";
+
+                    System.Console.WriteLine("DEBUG: User(" + UserName + ") requested to see the data for EAN(" + TargetEan + ").");
+                }
+            }
+
             // MORE SAMPLE CODE WILL BE WRITTEN HERE
 
             return response;
